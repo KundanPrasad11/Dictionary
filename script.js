@@ -1,12 +1,16 @@
 const searchInput = document.getElementById("search-input")
 const searchButton = document.getElementById("search-button");
+const searchedWord = document.getElementById("searched-word");
+const loader = document.getElementById("loader");
+const audioContainer = document.getElementById("audio-container");
+let speech = new SpeechSynthesisUtterance();
 
 searchInput.addEventListener("input", clearPreviousData);
 searchButton.addEventListener("click", handleSearch);
+audioContainer.addEventListener("click", handleSpeech);
 
 async function handleSearch() {
   clearPreviousData();
-  const loader = document.getElementById("loader");
   loader.style.display = "block"; // Show the loader
   const word = document.getElementById("search-input").value;
   const url = `https://wordsapiv1.p.rapidapi.com/words/${word}`;
@@ -39,7 +43,6 @@ async function handleSearch() {
 
 function handleError(message) {
   //Hide the loader
-  const loader = document.getElementById("loader");
   loader.style.display = "none";
   const errorContainer = document.getElementById("error-container");
   errorContainer.style.display = "flex";
@@ -66,12 +69,11 @@ function clearPreviousData() {
 
 function updateDefintions(result) {
   //Hide the loader
-  const loader = document.getElementById("loader");
   loader.style.display = "none";
 
-  // display word below input box
-  const searchedWord = document.getElementById("searched-word");
+  // display word and speaker below input box
   searchedWord.innerText = result.word;
+  audioContainer.style.display = "block";
 
   const definitionsContainer = document.getElementById("definitions");
 
@@ -96,4 +98,13 @@ function updateDefintions(result) {
 
     definitionsContainer.appendChild(definitionBox);
   })
+}
+
+function handleSpeech() {
+  speech.text = searchedWord.innerText;
+  window.speechSynthesis.speak(speech);
+  // stop audio when the word is spoken
+  speech.onend = function () {
+    window.speechSynthesis.cancel();
+  };
 }

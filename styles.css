@@ -1,3 +1,7 @@
+:root {
+  --primary-text-color: #5B5B5B;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +26,7 @@ header {
 }
 
 #header-left > h1 {
-  color: #5b5b5b
+  color: var(--primary-text-color)
 }
 
 #content {
@@ -61,7 +65,7 @@ header {
   border-radius: 5px;
   outline: none;
   font-size: 20px;
-  color: #5b5b5b;
+  color: var(--primary-text-color);
   @media screen and (max-width: 500px) {
     width: 90%;
     margin: auto;
@@ -71,7 +75,7 @@ header {
 
 #search-button {
   padding: 12px 15px;
-  background: #5B5B5B;
+  background: var(--primary-text-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -86,18 +90,30 @@ header {
   padding: 2rem 0;
 }
 
+#word-with-audio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 #searched-word {
   font-size: 22px;
   letter-spacing: 1.2px;
+  color: var(--primary-text-color);
   @media screen and (max-width: 500px) {
     font-size: 16px;
   }
 }
 
+#audio-container {
+  height: 24px;
+  display: none;
+}
+
 .definition-box {
   margin: 2rem 0;
   padding: 4px 1rem;
-  border-left: 2px solid #5B5B5B;
+  border-left: 2px solid var(--primary-text-color);
 }
 
 .info-text {
