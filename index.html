@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dictionary</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div id="header-left">
+      <img src="dictionary.png" alt="Logo" width="50px"/>
+      <h1>Dictionary App</h1>
+    </div>
+    <!-- <p id="saved">Saved words</p> -->
+  </header>
+  <section>
+    <div class="content" id="content">
+      <div id="search-container">
+        <input type="text" class="search-input" id="search-input" />
+        <button class="search-button" id="search-button">Search</button>
+      </div>
+      <div id="loader" class="loader">...Loading</div>
+      <article class="result-container" id="result-container">
+        <p class="searched-word" id="searched-word"></p>
+        <div class="definitions" id="definitions"></div>
+      </article>
+      <div id="error-container">
+        <img src="error-message.png" alt="error-icon" />
+        <p id="error-message"></p>
+      </div>
+    </div>
+  </section>
+</body>
+<script src="script.js"></script>
+</html>
