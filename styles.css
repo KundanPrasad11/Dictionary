@@ -1,5 +1,5 @@
 :root {
-  --primary-text-color: #5B5B5B;
+  --dark-text-color: #5B5B5B;
 }
 
 * {
@@ -8,25 +8,40 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 1rem;
   padding: 1rem;
-  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 20px -20px;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
 }
 
 #header-left {
-  min-width: 350px;
+  min-width: 300px;
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-#header-left > h1 {
-  color: var(--primary-text-color)
+.heading {
+  color: var(--dark-text-color);
+}
+
+#theme-toggle {
+  padding: 10px 12px;
+  background: var(--dark-text-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
 }
 
 #content {
@@ -65,7 +80,7 @@ header {
   border-radius: 5px;
   outline: none;
   font-size: 20px;
-  color: var(--primary-text-color);
+  color: var(--dark-text-color);
   @media screen and (max-width: 500px) {
     width: 90%;
     margin: auto;
@@ -75,7 +90,7 @@ header {
 
 #search-button {
   padding: 12px 15px;
-  background: var(--primary-text-color);
+  background: var(--dark-text-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -99,7 +114,7 @@ header {
 #searched-word {
   font-size: 22px;
   letter-spacing: 1.2px;
-  color: var(--primary-text-color);
+  color: var(--dark-text-color);
   @media screen and (max-width: 500px) {
     font-size: 16px;
   }
@@ -113,7 +128,7 @@ header {
 .definition-box {
   margin: 2rem 0;
   padding: 4px 1rem;
-  border-left: 2px solid var(--primary-text-color);
+  border-left: 2px solid var(--dark-text-color);
 }
 
 .info-text {

@@ -2,7 +2,13 @@ const searchInput = document.getElementById("search-input")
 const searchButton = document.getElementById("search-button");
 const searchedWord = document.getElementById("searched-word");
 const loader = document.getElementById("loader");
+const heading = document.getElementsByClassName("heading");
+const info = document.getElementsByClassName("info-text");
+const errorContainer = document.getElementById("error-container");
 const audioContainer = document.getElementById("audio-container");
+
+const lightTextColor = "#b5b5b5";
+const darkTextColor = "#5b5b5b";
 let speech = new SpeechSynthesisUtterance();
 
 searchInput.addEventListener("input", clearPreviousData);
@@ -44,7 +50,6 @@ async function handleSearch() {
 function handleError(message) {
   //Hide the loader
   loader.style.display = "none";
-  const errorContainer = document.getElementById("error-container");
   errorContainer.style.display = "flex";
   const errorElement = document.getElementById("error-message");
   errorElement.textContent = message;
@@ -52,12 +57,13 @@ function handleError(message) {
 
 function clearPreviousData() {
   //Hiding the previous error container
-  const errorContainer = document.getElementById("error-container");
   errorContainer.style.display = "none";
 
   //Removing word that was searched from view
-  const searchedWord = document.getElementById("searched-word");
   searchedWord.innerText = "";
+
+  //Removing audio container
+  audioContainer.style.display = "none";
 
   // Get #definitions to remove its child elements
   const definitionsContainer = document.getElementById("definitions");
@@ -77,27 +83,36 @@ function updateDefintions(result) {
 
   const definitionsContainer = document.getElementById("definitions");
 
-  //create and update containers for defintion, part of speech, examples
-  result?.results.forEach((e, index) => {
-    const definitionBox = document.createElement("div");
-    definitionBox.classList.add("definition-box");
-
-    const createAndAppendInfo = (text, className) => {
-      const info = document.createElement("p");
-      info.classList.add("info-text");
-      info.innerText = text;
-      definitionBox.appendChild(info);
-    };
-
-    createAndAppendInfo(`Definition: ${e.definition}`);
-    createAndAppendInfo(`Part of speech: ${e.partOfSpeech}`);
-    //Sometimes example is not there in response
-    if (e.examples) {
-      createAndAppendInfo(`Example: ${e.examples[0]}`);
-    }
-
-    definitionsContainer.appendChild(definitionBox);
-  })
+  //Sometimes we the response does not have results field inside result
+  if(result && result.results) {
+    //create and update containers for defintion, part of speech, examples
+    result?.results.forEach((e, index) => {
+      const definitionBox = document.createElement("div");
+      definitionBox.classList.add("definition-box");
+  
+      const createAndAppendInfo = (text, className) => {
+        const info = document.createElement("p");
+        info.classList.add("info-text");
+        info.innerText = text;
+        if(localStorage.getItem("theme") == "dark") {
+          info.style.color = lightTextColor;
+        }
+        definitionBox.appendChild(info);
+      };
+  
+      createAndAppendInfo(`Definition: ${e.definition}`);
+      createAndAppendInfo(`Part of speech: ${e.partOfSpeech}`);
+      //Sometimes example is not there in response
+      if (e.examples) {
+        createAndAppendInfo(`Example: ${e.examples[0]}`);
+      }
+  
+      definitionsContainer.appendChild(definitionBox);
+    })
+  } else {
+    let errorMessage = `Oops we don't have any definition for "${result.word}"!`;
+    handleError(errorMessage);
+  }
 }
 
 function handleSpeech() {
@@ -108,3 +123,47 @@ function handleSpeech() {
     window.speechSynthesis.cancel();
   };
 }
+
+
+// Handling theme (light / dark)
+function handleDarkTheme() {
+  document.body.style.background = "#1E1E1E";
+  heading[0].style.color = lightTextColor;
+  searchInput.style.background = lightTextColor;
+  searchInput.style.color = "#1E1E1E";
+  searchedWord.style.color = lightTextColor;
+  for(let i=0; i<info.length; i++) {
+    info[i].style.color = lightTextColor;
+  }
+  loader.style.color = lightTextColor;
+}
+
+function handleLightTheme() {
+  document.body.style.background = "white";
+  heading[0].style.color = darkTextColor;
+  searchInput.style.background = "white";
+  searchInput.style.color = darkTextColor;
+  searchedWord.style.color = darkTextColor;
+  for(let i=0; i<info.length; i++) {
+    info[i].style.color = darkTextColor;
+  }
+  loader.style.color = lightTextColor;
+}
+
+function toggleTheme() {
+  if(localStorage.getItem("theme") == "dark") {
+    handleLightTheme();
+    localStorage.setItem("theme", "light");
+  } else {
+    handleDarkTheme();
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const themeToggle = document.getElementById("theme-toggle");
+  if(localStorage.getItem("theme") == "dark") {
+    handleDarkTheme();
+  }
+  themeToggle.addEventListener("click", toggleTheme);
+})
