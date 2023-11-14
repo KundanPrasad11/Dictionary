@@ -95,21 +95,20 @@ function updateDefintions(result) {
       const definitionBox = document.createElement("div");
       definitionBox.classList.add("definition-box");
   
-      const createAndAppendInfo = (topic="definition:", text) => {
+      const createAndAppendInfo = (topic, text) => {
         const info = document.createElement("p");
         const infoTopic = document.createElement("span");
         const infoAnswer = document.createElement("span");
         info.classList.add("info-text");
         infoTopic.classList.add("info-topic");
         infoAnswer.classList.add("info-answer");
-        infoTopic.innerText = topic;
-        infoAnswer.innerText = text;
+        infoTopic.innerHTML = topic;
+        infoAnswer.innerHTML = topic == "Example:"? findAndItalicizeWord(text, result.word) : text;
         if(localStorage.getItem("theme") == "dark") {
           info.style.color = lightTextColor;
         }
         info.appendChild(infoTopic);
         info.appendChild(infoAnswer);
-        console.log("info", info);
         definitionBox.appendChild(info);
       };
       createAndAppendInfo(`Definition:` ,e.definition);
@@ -125,6 +124,20 @@ function updateDefintions(result) {
     let errorMessage = `Oops we don't have any definition for "${result.word}"!`;
     handleError(errorMessage);
   }
+}
+
+function findAndItalicizeWord(sentence, word) {
+  // Convert both the sentence and the word to lowercase for case-insensitive comparison
+  const lowercasedSentence = sentence.toLowerCase();
+  const lowercasedWord = word.toLowerCase();
+
+  // Find the index of the word in the sentence
+  const index = lowercasedSentence.indexOf(lowercasedWord);
+
+  const italicizedSentence = `${sentence.substring(0, index)}<em>${sentence.substring(index, index + word.length)}</em>${sentence.substring(index + word.length)}`;
+  
+  // Display the italicized sentence
+  return italicizedSentence;
 }
 
 function handleSpeech() {
