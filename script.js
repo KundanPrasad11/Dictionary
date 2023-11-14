@@ -6,6 +6,8 @@ const heading = document.getElementsByClassName("heading");
 const info = document.getElementsByClassName("info-text");
 const errorContainer = document.getElementById("error-container");
 const audioContainer = document.getElementById("audio-container");
+const themeToggle = document.getElementById("toggle-theme");
+const themeText = document.getElementById("theme-text");
 
 const lightTextColor = "#b5b5b5";
 const darkTextColor = "#5b5b5b";
@@ -154,6 +156,7 @@ function handleSpeech() {
 function handleDarkTheme() {
   document.body.style.background = "#1E1E1E";
   heading[0].style.color = lightTextColor;
+  themeText.style.color = lightTextColor;
   searchInput.style.background = lightTextColor;
   searchInput.style.color = "#1E1E1E";
   searchedWord.style.color = lightTextColor;
@@ -166,6 +169,7 @@ function handleDarkTheme() {
 function handleLightTheme() {
   document.body.style.background = "white";
   heading[0].style.color = darkTextColor;
+  themeText.style.color = darkTextColor;
   searchInput.style.background = "white";
   searchInput.style.color = darkTextColor;
   searchedWord.style.color = darkTextColor;
@@ -176,19 +180,19 @@ function handleLightTheme() {
 }
 
 function toggleTheme() {
-  if(localStorage.getItem("theme") == "dark") {
-    handleLightTheme();
-    localStorage.setItem("theme", "light");
-  } else {
+  if(themeToggle.checked) {
     handleDarkTheme();
     localStorage.setItem("theme", "dark");
+  } else {
+    handleLightTheme();
+    localStorage.setItem("theme", "light");
   }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  const themeToggle = document.getElementById("theme-toggle");
   if(localStorage.getItem("theme") == "dark") {
+    themeToggle.checked = true;
     handleDarkTheme();
   }
-  themeToggle.addEventListener("click", toggleTheme);
+  themeToggle.addEventListener("change", toggleTheme);
 })
