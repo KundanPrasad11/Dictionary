@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dictionary</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
   <header class="header">
     <div id="header-left">
-      <img src="dictionary.png" alt="Logo" width="50px"/>
+      <img src="dictionary.png" alt="Logo" width="50px" />
       <h1 class="heading">Dictionary App</h1>
     </div>
     <button id="theme-toggle">Toggle Theme</button>
@@ -22,7 +23,7 @@
         <input type="text" class="search-input" id="search-input" />
         <button class="search-button" id="search-button">Search</button>
       </div>
-      <div id="loader" class="loader">...Loading</div>
+      <lottie-player id="loader" class="loader" src="loading.json" autoplay loop></lottie-player>
       <article class="result-container" id="result-container">
         <div class="word-with-audio" id="word-with-audio">
           <p class="searched-word" id="searched-word"></p>

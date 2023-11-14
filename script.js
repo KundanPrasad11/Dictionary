@@ -12,6 +12,11 @@ const darkTextColor = "#5b5b5b";
 let speech = new SpeechSynthesisUtterance();
 
 searchInput.addEventListener("input", clearPreviousData);
+searchInput.addEventListener("keypress", function(e) {
+  if(e.key === 'Enter') {
+    handleSearch();
+  }
+});
 searchButton.addEventListener("click", handleSearch);
 audioContainer.addEventListener("click", handleSpeech);
 
@@ -90,21 +95,28 @@ function updateDefintions(result) {
       const definitionBox = document.createElement("div");
       definitionBox.classList.add("definition-box");
   
-      const createAndAppendInfo = (text, className) => {
+      const createAndAppendInfo = (topic="definition:", text) => {
         const info = document.createElement("p");
+        const infoTopic = document.createElement("span");
+        const infoAnswer = document.createElement("span");
         info.classList.add("info-text");
-        info.innerText = text;
+        infoTopic.classList.add("info-topic");
+        infoAnswer.classList.add("info-answer");
+        infoTopic.innerText = topic;
+        infoAnswer.innerText = text;
         if(localStorage.getItem("theme") == "dark") {
           info.style.color = lightTextColor;
         }
+        info.appendChild(infoTopic);
+        info.appendChild(infoAnswer);
+        console.log("info", info);
         definitionBox.appendChild(info);
       };
-  
-      createAndAppendInfo(`Definition: ${e.definition}`);
-      createAndAppendInfo(`Part of speech: ${e.partOfSpeech}`);
+      createAndAppendInfo(`Definition:` ,e.definition);
+      createAndAppendInfo(`Part of speech:`, e.partOfSpeech);
       //Sometimes example is not there in response
       if (e.examples) {
-        createAndAppendInfo(`Example: ${e.examples[0]}`);
+        createAndAppendInfo(`Example:`, e.examples[0]);
       }
   
       definitionsContainer.appendChild(definitionBox);
