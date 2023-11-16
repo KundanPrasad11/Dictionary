@@ -2,6 +2,7 @@
 
 Presenting a concise dictionary mini-app that offers word definitions, highlights their corresponding parts of speech, and provides illustrative example sentences. This versatile application additionally grants users the ability to audibly grasp word pronunciation and effortlessly switch between light and dark themes, enhancing the overall user experience.
 
+[Click here to explore the live website](https://dictionary-brown.vercel.app/)
 
 ## Tech Stack
 
