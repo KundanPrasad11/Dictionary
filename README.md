@@ -1,6 +1,6 @@
 # Dictionary app using HTML, CSS, Javascript
 
-Presenting a concise dictionary mini-app that offers word definitions, highlights their corresponding parts of speech, and provides illustrative example sentences. This versatile application additionally grants users the ability to audibly grasp word pronunciation and effortlessly switch between light and dark themes, enhancing the overall user experience.
+Presenting a concise dictionary mini-app utilizing the [WordsAPI](https://www.wordsapi.com/) to retrieve data.This application offers word definitions, highlights their corresponding parts of speech, and provides illustrative example sentences. This versatile application additionally grants users the ability to audibly grasp word pronunciation and effortlessly switch between light and dark themes, enhancing the overall user experience.
 
 [Click here to explore the live website](https://dictionary-brown.vercel.app/)
 
@@ -21,5 +21,6 @@ User can toggle between light and dark themes by clicking on the theme switch lo
 
  - [Lottie files](https://lottiefiles.com/) - used for loader.
  - [Flaticon](https://www.flaticon.com/) - for images.
+ - [WordsAPI](https://www.wordsapi.com/) - to fetch data.
 
 
