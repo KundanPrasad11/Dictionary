@@ -90,9 +90,9 @@ function updateDefintions(result) {
 
   const definitionsContainer = document.getElementById("definitions");
 
-  //Sometimes we the response does not have results field inside result
+  //Sometimes the response does not have results field inside result
   if(result && result.results) {
-    //create and update containers for defintion, part of speech, examples
+    //create and update containers for multiple defintion, part of speech, examples
     result?.results.forEach((e, index) => {
       const definitionBox = document.createElement("div");
       definitionBox.classList.add("definition-box");
@@ -101,18 +101,23 @@ function updateDefintions(result) {
         const info = document.createElement("p");
         const infoTopic = document.createElement("span");
         const infoAnswer = document.createElement("span");
+
         info.classList.add("info-text");
         infoTopic.classList.add("info-topic");
         infoAnswer.classList.add("info-answer");
+
         infoTopic.innerHTML = topic;
         infoAnswer.innerHTML = topic == "Example:"? findAndItalicizeWord(text, result.word) : text;
+
         if(localStorage.getItem("theme") == "dark") {
           info.style.color = lightTextColor;
         }
+
         info.appendChild(infoTopic);
         info.appendChild(infoAnswer);
         definitionBox.appendChild(info);
       };
+
       createAndAppendInfo(`Definition:` ,e.definition);
       createAndAppendInfo(`Part of speech:`, e.partOfSpeech);
       //Sometimes example is not there in response
@@ -136,9 +141,9 @@ function findAndItalicizeWord(sentence, word) {
   // Find the index of the word in the sentence
   const index = lowercasedSentence.indexOf(lowercasedWord);
 
+  //Create italicized word
   const italicizedSentence = `${sentence.substring(0, index)}<em>${sentence.substring(index, index + word.length)}</em>${sentence.substring(index + word.length)}`;
   
-  // Display the italicized sentence
   return italicizedSentence;
 }
 
@@ -150,7 +155,6 @@ function handleSpeech() {
     window.speechSynthesis.cancel();
   };
 }
-
 
 // Handling theme (light / dark)
 function handleDarkTheme() {
